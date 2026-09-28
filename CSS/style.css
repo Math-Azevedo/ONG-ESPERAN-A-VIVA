@@ -1,0 +1,247 @@
+/* ==========================================================================
+   DESIGN SYSTEM & VARIÁVEIS
+   ========================================================================== */
+:root {
+  --color-primary: #1b4d3e;
+  --color-primary-hover: #123329;
+  --color-secondary: #e06d53;
+  --color-secondary-hover: #c8533a;
+  --color-neutral-dark: #212529;
+  --color-neutral-medium: #6c757d;
+  --color-neutral-light: #f8f9fa;
+  --color-neutral-white: #ffffff;
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-danger: #dc3545;
+
+  --font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-xs: 0.875rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.25rem;
+  --font-size-lg: 1.75rem;
+  --font-size-xl: 2.5rem;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2.5rem;
+  --spacing-xl: 4rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  color: var(--color-neutral-dark);
+  background-color: var(--color-neutral-light);
+  line-height: 1.6;
+}
+
+/* MACRO LAYOUT */
+main {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-sm);
+  min-height: 70vh;
+}
+
+header, footer, h1, .full-width {
+  grid-column: span 12;
+}
+
+/* BREAKPOINTS */
+@media (max-width: 479px) {
+  main { grid-template-columns: 1fr; }
+  header, footer, h1, section, article, fieldset { grid-column: span 1 !important; }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  main { grid-template-columns: repeat(4, 1fr); }
+  #sobre, #destaque, #contato, article, fieldset { grid-column: span 4; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  main { grid-template-columns: repeat(8, 1fr); }
+  #sobre { grid-column: span 5; }
+  #destaque { grid-column: span 3; }
+  fieldset { grid-column: span 8; }
+}
+
+@media (min-width: 1024px) {
+  main { grid-template-columns: repeat(12, 1fr); }
+  #sobre { grid-column: span 8; }
+  #destaque { grid-column: span 4; }
+  fieldset { grid-column: span 6; }
+}
+
+/* NAVEGAÇÃO */
+header {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-white);
+  padding: var(--spacing-sm) var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+header img { max-height: 50px; }
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: var(--spacing-sm);
+}
+
+nav a {
+  color: var(--color-neutral-white);
+  text-decoration: none;
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+  background-color: var(--color-primary-hover);
+  border-bottom: 2px solid var(--color-secondary);
+}
+
+.menu-toggle { display: none; }
+.menu-icon { display: none; font-size: 1.8rem; cursor: pointer; color: var(--color-neutral-white); }
+
+@media (max-width: 767px) {
+  .menu-icon { display: block; }
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-primary);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    z-index: 100;
+  }
+  .menu-toggle:checked ~ nav ul { max-height: 300px; }
+}
+
+/* COMPONENTES */
+article, section {
+  background: var(--color-neutral-white);
+  padding: var(--spacing-md);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+button, .btn {
+  background-color: var(--color-primary);
+  color: var(--color-neutral-white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+button:hover, .btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* FORMULÁRIOS E VALIDAÇÃO VISUAL */
+input, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid var(--color-neutral-medium);
+  border-radius: 4px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(27, 77, 62, 0.25);
+  outline: none;
+}
+
+input.is-valid {
+  border: 2px solid var(--color-success) !important;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.2);
+}
+
+input.is-invalid {
+  border: 2px solid var(--color-danger) !important;
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.2);
+}
+
+.error-message {
+  color: var(--color-danger);
+  font-size: var(--font-size-xs);
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* BADGES & ALERTAS */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  border-radius: 12px;
+  text-transform: uppercase;
+  margin-left: var(--spacing-xs);
+}
+.badge-success { background-color: #d4edda; color: #155724; }
+.badge-warning { background-color: #fff3cd; color: #856404; }
+.badge-info    { background-color: #d1ecf1; color: #0c5460; }
+
+.alert {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  grid-column: span 12;
+}
+.alert-success { background-color: #d4edda; color: #155724; border-left: 5px solid #28a745; }
+.alert-warning { background-color: #fff3cd; color: #856404; border-left: 5px solid #ffc107; }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--color-neutral-dark);
+  color: var(--color-neutral-white);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border-left: 4px solid var(--color-secondary);
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.toast.hidden { display: none; }
+
+footer {
+  text-align: center;
+  padding: var(--spacing-md);
+  background-color: var(--color-neutral-dark);
+  color: var(--color-neutral-white);
+  margin-top: var(--spacing-lg);
+}
